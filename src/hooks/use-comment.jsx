@@ -116,6 +116,7 @@ function useComment() {
 
   return {
     commentData,
+    setCommentData,
     addComment,
     removeComment,
     editComment,

@@ -6,27 +6,22 @@ import useComment from "../hooks/use-comment";
 export default function NestedComments() {
   const [selected, setSelected] = useState("newest");
   const { commentData, setCommentData } = useComment();
-
   const handleChange = (e) => {
+    let data = [...commentData];
     const value = e.target.value;
     setSelected(value);
     switch (value) {
       case "newest":
-        setCommentData(
-          [...commentData].sort(
-            (a, b) => new Date(a.timestamp) - new Date(b.timestamp)
-          )
-        );
+        data.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+        setCommentData([...data]);
         break;
       case "oldest":
-        setCommentData(
-          [...commentData].sort(
-            (a, b) => new Date(b.timestamp) - new Date(a.timestamp)
-          )
-        );
+        data.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+        setCommentData([...data]);
         break;
       case "mostVoted":
-        setCommentData([...commentData].sort((a, b) => a.votes < b.votes));
+        data.sort((a, b) => b.votes - a.votes);
+        setCommentData([...data]);
         break;
       default:
         setCommentData(commentData);
