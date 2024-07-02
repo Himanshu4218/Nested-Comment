@@ -6,8 +6,11 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
+_cacache
+_update-notifier-last-checked
 
 node_modules
+_npx
 dist
 dist-ssr
 *.local
