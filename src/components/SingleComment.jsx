@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import useComment from "../hooks/use-comment";
 
 export default function SingleComment({ comment, isReply, setIsReply }) {
   const [edit, setEdit] = useState(false);
   const [editContent, setEditContent] = useState(comment.content);
+    const inputRef = useRef(null);
   const { removeComment, editComment, likeComment, unlikeComment } =
     useComment();
   const d = new Date(comment.timestamp);
@@ -34,10 +35,17 @@ export default function SingleComment({ comment, isReply, setIsReply }) {
     unlikeComment(commentId);
   };
 
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [edit, setEdit]);
+
   return (
     <div className="p-3 bg-gray-100 rounded">
       {edit ? (
         <textarea
+          ref={inputRef}
           value={editContent}
           onChange={(e) => setEditContent(e.target.value)}
           className="w-full p-2 grow border border-gray-300 rounded outline-none"
